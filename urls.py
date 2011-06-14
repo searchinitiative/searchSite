@@ -7,7 +7,7 @@ admin.autodiscover()
 from searchSite.views import IndexView
 
 from django.views.generic import DetailView
-from articles.models import Article
+from searchSite.articles.models import Article
 
 urlpatterns = patterns('',
     # Examples:
