@@ -1,7 +1,7 @@
 import os
 import sys
 
-path = '/home/ethan/searchinit'
+path = '/home/searchinit'
 if path not in sys.path:
    sys.path.append(path)
 
