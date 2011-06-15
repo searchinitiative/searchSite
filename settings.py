@@ -149,3 +149,12 @@ AUTH_PROFILE_MODULE = 'articles.UserProfile'
 
 RECAPTCHA_PUBKEY = "6LdlR8USAAAAAJOmmmyif35oQSp4SuPpzYEybjkr"
 RECAPTCHA_PRIVKEY = "6LdlR8USAAAAAP0OutSfZ7J1ihuuqwP7s_k3zC1m"
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+"django.contrib.auth.context_processors.auth",
+"django.core.context_processors.debug",
+"django.core.context_processors.i18n",
+"django.core.context_processors.media",
+"django.core.context_processors.static",
+"django.contrib.messages.context_processors.messages",
+'articles.views.getTagList')

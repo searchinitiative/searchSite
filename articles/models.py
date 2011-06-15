@@ -6,7 +6,7 @@ from django.db.models.signals import post_save
 from django.forms import ModelForm
 
 class Tag(models.Model):
-   name = models.CharField(max_length = 30)
+   name = models.CharField(max_length = 30,unique=True)
 
    def __unicode__(this):
       return this.name
@@ -16,7 +16,7 @@ class Tag(models.Model):
 
 
 class Article(models.Model):
-   name = models.CharField(max_length = 30)
+   name = models.CharField(max_length = 30,unique=True)
    author  = models.ForeignKey(auth.models.User)
    tag = models.ForeignKey(Tag)
    text = models.TextField()

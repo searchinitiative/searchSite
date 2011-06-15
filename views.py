@@ -22,6 +22,9 @@ class ProfileSpecificView(DetailView):
 class IndexView(TemplateView):
    template_name= "index.html"
 
+class NewsView(TemplateView):
+   template_name= "news.html"
+
 class MyCreationForm(UserCreationForm):
    captcha = ReCaptchaField()
 
