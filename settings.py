@@ -119,7 +119,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
 
     'django.contrib.admindocs',
-    'searchSite.articles'
+    'searchSite.articles',
 )
 
 # A sample logging configuration. The only tangible logging

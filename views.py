@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader, Template
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 
 from django.shortcuts import render_to_response
 
@@ -11,6 +11,13 @@ from django.contrib.auth.models import User
 
 from recapForm import ReCaptchaField
 
+
+class ProfileView(TemplateView):
+   template_name = "accounts/myprofile.html"
+
+class ProfileSpecificView(DetailView):
+   template_name = "accounts/profile.html"
+   model = User
 
 class IndexView(TemplateView):
    template_name= "index.html"

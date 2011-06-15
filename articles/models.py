@@ -3,11 +3,17 @@ from django.contrib import auth
 
 from django.db.models.signals import post_save
 
+from django.forms import ModelForm
+
 class Tag(models.Model):
    name = models.CharField(max_length = 30)
 
    def __unicode__(this):
       return this.name
+
+   def get_absolute_url(this):
+      return '/articles/tags/%d' % this.pk
+
 
 class Article(models.Model):
    name = models.CharField(max_length = 30)
@@ -17,6 +23,14 @@ class Article(models.Model):
 
    def __unicode__(this):
       return this.name
+
+   def get_absolute_url(this):
+      return '/articles/%d' % this.pk
+
+class CreateArticleForm(ModelForm):
+   class Meta:
+      model = Article
+      fields = ('name','tag','text')
 
 class Comment(models.Model):
    text = models.TextField()
