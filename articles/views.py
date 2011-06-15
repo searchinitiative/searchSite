@@ -4,10 +4,10 @@ from django.views.generic import DetailView, ListView
 
 from django.contrib.auth.decorators import login_required
 
-from articles.models import CreateArticleForm
+from searchSite.articles.models import CreateArticleForm
 
 from django.shortcuts import render_to_response, get_object_or_404
-from articles.models import Article, Tag
+from searchSite.articles.models import Article, Tag
 
 @login_required
 def create(request):
