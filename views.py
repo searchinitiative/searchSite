@@ -29,10 +29,10 @@ def register(request):
          password =  form.cleaned_data['password1']
          User.objects.create_user(username,"",password)
 
-         return HttpResponseRedirect('/thanks/')
+         return HttpResponseRedirect('/accounts/profile')
 
    else:
       form = MyCreationForm()
 
-   return render_to_response('register.html', {'form':form}, context_instance=RequestContext(request))
+   return render_to_response('accounts/register.html', {'form':form}, context_instance=RequestContext(request))
 

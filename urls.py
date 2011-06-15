@@ -12,8 +12,9 @@ from searchSite.articles.models import Article
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', IndexView.as_view()),
-    url(r'^register$', 'searchSite.views.register'),
     url(r'^articles/(?P<pk>\d+)/$', DetailView.as_view(model = Article)),
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login',{'template_name': 'accounts/login.html'}),
+    url(r'^accounts/register/$', 'searchSite.views.register'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
 #     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
