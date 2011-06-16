@@ -28,12 +28,17 @@ def create(request):
    return render_to_response('articles/create.html', {'form':form}, context_instance=RequestContext(request))
 
 
-def tagview(request,pk):
+def tagView(request,pk):
    template_name = "articles/tagview.html"
    tag = get_object_or_404(Tag, pk=pk)
-   articles = Article.objects.filter(tag=tag)
-   return render_to_response('articles/tagview.html', {'tag':tag, 'articles':articles}, context_instance=RequestContext(request))
+   articles = tag.article_set.all()
+   return render_to_response('articles/tagView.html', {'tag':tag, 'articles':articles}, context_instance=RequestContext(request))
 
+def articleView(request,pk):
+   template_name = "articles/articleview.html"
+   article = get_object_or_404(Article, pk=pk)
+   comments = article.comment_set.all()
+   return render_to_response('articles/articleView.html', {'article':article, 'comments':comments}, context_instance=RequestContext(request))
 
 def getTagList(request):
    return {'top5tags': Tag.objects.all()[:5]}

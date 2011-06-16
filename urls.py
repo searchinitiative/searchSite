@@ -17,10 +17,10 @@ urlpatterns = patterns('',
     url(r'^$', IndexView.as_view()),
     url(r'^news$', NewsView.as_view()),
 
-    url(r'^articles/(?P<pk>\d+)/$', DetailView.as_view(model = Article)),
+    url(r'^articles/(?P<pk>\d+)/$', 'searchSite.articles.views.articleView'),
     url(r'^articles/create/$','searchSite.articles.views.create'),
     url(r'^articles/newtag/$', login_required(CreateView.as_view(model = Tag))),
-    url(r'^articles/tags/(?P<pk>\d+)$', 'searchSite.articles.views.tagview'),
+    url(r'^articles/tags/(?P<pk>\d+)$', 'searchSite.articles.views.tagView'),
     url(r'^articles/$',ListView.as_view(model = Tag)),
 
     url(r'^accounts/login/$', 'django.contrib.auth.views.login',{'template_name': 'accounts/login.html'}),

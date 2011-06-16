@@ -39,6 +39,11 @@ class Comment(models.Model):
    def __unicode__(this):
       return this.text
 
+#class CreateCommentForm(ModelForm):
+#   class Meta:
+#      model = Comment
+#      fields = ('text')
+
 class UserProfile(models.Model):
    user = models.OneToOneField(auth.models.User)
    specialty = models.CharField(max_length = 30)
