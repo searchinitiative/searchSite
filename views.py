@@ -2,14 +2,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader, Template
 from django.views.generic import TemplateView, DetailView
 
-from django.shortcuts import render_to_response
-
 from django.forms import ModelForm, PasswordInput, DateInput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth  import login, authenticate
 
 from recapForm import ReCaptchaField
+
+from searchSite.annoying.decorators import render_to
 
 
 class ProfileView(TemplateView):
@@ -28,6 +28,7 @@ class NewsView(TemplateView):
 class MyCreationForm(UserCreationForm):
    captcha = ReCaptchaField()
 
+@render_to("accounts/register.html")
 def register(request):
    if request.method == 'POST':
 
@@ -47,5 +48,5 @@ def register(request):
    else:
       form = MyCreationForm()
 
-   return render_to_response('accounts/register.html', {'form':form}, context_instance=RequestContext(request))
+   return  {'form':form}
 

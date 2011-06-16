@@ -120,6 +120,7 @@ INSTALLED_APPS = (
 
     'django.contrib.admindocs',
     'searchSite.articles',
+    'searchSite.annoying',
 )
 
 # A sample logging configuration. The only tangible logging

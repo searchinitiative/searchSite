@@ -5,6 +5,8 @@ from django.db.models.signals import post_save
 
 from django.forms import ModelForm
 
+from searchSite.annoying.fields import AutoOneToOneField
+
 class Tag(models.Model):
    name = models.CharField(max_length = 30,unique=True)
 
@@ -45,17 +47,12 @@ class Comment(models.Model):
 #      fields = ('text')
 
 class UserProfile(models.Model):
-   user = models.OneToOneField(auth.models.User)
+   user = AutoOneToOneField(auth.models.User, primary_key=True)
    specialty = models.CharField(max_length = 30)
 
    def __unicode__(this):
       return u'The profile for %s' % this.user
 
-def create_user_profile(sender,instance,created,**kwargs):
-   if created:
-      profile, created = UserProfile.objects.get_or_create(user=instance)
-
-post_save.connect(create_user_profile,sender=auth.models.User)
 
 
 

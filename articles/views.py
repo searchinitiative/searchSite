@@ -9,6 +9,9 @@ from searchSite.articles.models import CreateArticleForm
 from django.shortcuts import render_to_response, get_object_or_404
 from searchSite.articles.models import Article, Tag
 
+from searchSite.annoying.decorators import render_to
+
+@render_to('articles/create.html')
 @login_required
 def create(request):
 
@@ -25,20 +28,20 @@ def create(request):
    else:
       form = CreateArticleForm()
 
-   return render_to_response('articles/create.html', {'form':form}, context_instance=RequestContext(request))
+   return {'form':form}
 
 
+@render_to('articles/tagView.html')
 def tagView(request,pk):
-   template_name = "articles/tagview.html"
    tag = get_object_or_404(Tag, pk=pk)
    articles = tag.article_set.all()
-   return render_to_response('articles/tagView.html', {'tag':tag, 'articles':articles}, context_instance=RequestContext(request))
+   return  {'tag':tag, 'articles':articles}
 
+@render_to('articles/articleView.html')
 def articleView(request,pk):
-   template_name = "articles/articleview.html"
    article = get_object_or_404(Article, pk=pk)
    comments = article.comment_set.all()
-   return render_to_response('articles/articleView.html', {'article':article, 'comments':comments}, context_instance=RequestContext(request))
+   return  {'article':article, 'comments':comments}
 
 def getTagList(request):
    return {'top5tags': Tag.objects.all()[:5]}
