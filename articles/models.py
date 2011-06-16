@@ -1,8 +1,5 @@
 from django.db import models
 from django.contrib import auth
-
-from django.db.models.signals import post_save
-
 from django.forms import ModelForm
 
 from searchSite.annoying.fields import AutoOneToOneField
@@ -41,10 +38,10 @@ class Comment(models.Model):
    def __unicode__(this):
       return this.text
 
-#class CreateCommentForm(ModelForm):
-#   class Meta:
-#      model = Comment
-#      fields = ('text')
+class CreateCommentForm(ModelForm):
+   class Meta:
+      model = Comment
+      fields = ('text',)
 
 class UserProfile(models.Model):
    user = AutoOneToOneField(auth.models.User, primary_key=True)
