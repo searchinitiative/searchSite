@@ -6,8 +6,8 @@ from django.shortcuts import render_to_response
 
 from django.forms import ModelForm, PasswordInput, DateInput
 from django.contrib.auth.forms import UserCreationForm
-
 from django.contrib.auth.models import User
+from django.contrib.auth  import login, authenticate
 
 from recapForm import ReCaptchaField
 
@@ -37,7 +37,10 @@ def register(request):
       if form.is_valid():
          username = form.cleaned_data['username']
          password =  form.cleaned_data['password1']
+
          User.objects.create_user(username,"",password)
+         
+         login(request,authenticate(username=username,password=password))
 
          return HttpResponseRedirect('/accounts/profile')
 
