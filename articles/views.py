@@ -35,7 +35,5 @@ def tagview(request,pk):
    return render_to_response('articles/tagview.html', {'tag':tag, 'articles':articles}, context_instance=RequestContext(request))
 
 
-
-
 def getTagList(request):
    return {'top5tags': Tag.objects.all()[:5]}
