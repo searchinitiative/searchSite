@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib import auth
-from django.forms import ModelForm
+from django.forms import ModelForm, HiddenInput
 
 from searchSite.annoying.fields import AutoOneToOneField
 
