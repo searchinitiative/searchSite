@@ -34,6 +34,7 @@ class CreateArticleForm(ModelForm):
 class Comment(models.Model):
    text = models.TextField()
    article = models.ForeignKey(Article)
+   author = models.ForeignKey(auth.models.User)
 
    def __unicode__(this):
       return this.text

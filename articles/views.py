@@ -39,7 +39,7 @@ def articleView(request,pk):
    comments = article.comment_set.all()
 
    if (request.method == 'POST' and request.user.is_authenticated()):
-      c = Comment(article = article)
+      c = Comment(article = article, author=request.user)
       form = CreateCommentForm(request.POST,instance = c)
       if form.is_valid():
          form.save()
@@ -60,10 +60,10 @@ def submitComment(request,pk):
 
    if (request.method == 'POST' and request.user.is_authenticated()):
       article = get_object_or_404(Article,pk = pk)
-      f = Comment(article = article)
+      f = Comment(article = article, author=request.user)
       form = CreateCommentForm(request.POST,instance = f)
       if form.is_valid():
          c = form.save()
-         b = json.dumps({'comment':c.text, 'error':False})
+         b = json.dumps({'comment':c.text, 'author':c.author.username, 'error':False})
 
    return HttpResponse(b,mimetype='application/json')
