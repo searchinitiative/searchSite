@@ -12,6 +12,5 @@ urlpatterns = patterns('searchSite.articles.views',
     url(r'^create/$','create'),
     url(r'^newtag/$', login_required(CreateView.as_view(model = Tag))),
     url(r'^tags/(?P<pk>\d+)$', 'tagView'),
-    url(r'^test/$', 'testAjax'),
     url(r'^submitComment/(?P<pk>\d+)/$', 'submitComment'),
     url(r'^$',ListView.as_view(model = Tag)))
