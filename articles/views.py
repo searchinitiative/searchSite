@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 from django.contrib.auth.decorators import login_required
 
-from searchSite.articles.models import CreateArticleForm, CreateCommentForm
+from searchSite.articles.models import CreateArticleForm, CreateCommentForm, EditArticleForm, EditCommentForm
 
 from django.shortcuts import get_object_or_404
 from searchSite.articles.models import Article, Tag, Comment
@@ -37,6 +37,10 @@ def articleView(request,pk):
 
    article = get_object_or_404(Article, pk=pk)
    comments = article.comment_set.all()
+   for comment in comments:
+      if comment.author == request.user:
+         comment.canEdit = True
+         comment.editForm = EditCommentForm(instance = comment)
 
    if (request.method == 'POST' and request.user.is_authenticated()):
       c = Comment(article = article, author=request.user)
@@ -48,10 +52,49 @@ def articleView(request,pk):
    else:
       form = CreateCommentForm()
 
-   return  {'article':article, 'comments':comments, 'form':form}
+   editForm = EditArticleForm(instance = article)
+   canEdit = (request.user == article.author)
+
+   return  {'article':article, 'comments':comments, 'form':form, 'editForm':editForm, 'canEdit':canEdit}
 
 def getTagList(request):
    return {'top5tags': Tag.objects.all()[:5]}
+
+
+@render_to('articles/editArticleView.html')
+def editArticleView(request,pk):
+
+   article = get_object_or_404(Article, pk=pk,author = request.user)
+
+   if (request.method == 'POST' and request.user.is_authenticated()):
+      form = EditArticleForm(request.POST, instance = article)
+      if form.is_valid():
+         form.save()
+         return HttpResponseRedirect('/articles/' + str(article.id) + '/')
+
+   else:
+      form = EditArticleForm(instance = article )
+
+
+   return  {'article':article, 'form':form }
+
+@render_to('articles/editCommentView.html')
+def editCommentView(request,pk):
+
+   comment = get_object_or_404(Comment, pk=pk,author = request.user)
+
+   if (request.method == 'POST' and request.user.is_authenticated()):
+      form = EditCommentForm(request.POST, instance = comment)
+      if form.is_valid():
+         form.save()
+         return HttpResponseRedirect('/articles/' + str(comment.article.id) + '/')
+
+   else:
+      form = EditCommentForm(instance = comment )
+
+
+   return  {'comment':comment, 'form':form }
+
 
 import json
 

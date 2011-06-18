@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib import auth
-from django.forms import ModelForm, HiddenInput
+from django.forms import ModelForm, CharField
+from django import forms
 
 from searchSite.annoying.fields import AutoOneToOneField
 
@@ -20,6 +21,9 @@ class Article(models.Model):
    tag = models.ForeignKey(Tag)
    text = models.TextField()
 
+   def canEdit(user):
+      return user == author
+
    def __unicode__(this):
       return this.name
 
@@ -31,6 +35,12 @@ class CreateArticleForm(ModelForm):
       model = Article
       fields = ('name','tag','text')
 
+class EditArticleForm(ModelForm):
+   class Meta:
+      model = Article
+      fields = ('text',)
+
+
 class Comment(models.Model):
    text = models.TextField()
    article = models.ForeignKey(Article)
@@ -38,6 +48,11 @@ class Comment(models.Model):
 
    def __unicode__(this):
       return this.text
+
+class EditCommentForm(ModelForm):
+   class Meta:
+      model = Comment
+      fields = ('text',)
 
 class CreateCommentForm(ModelForm):
    class Meta:
