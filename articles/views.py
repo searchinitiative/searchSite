@@ -38,7 +38,7 @@ def articleView(request,pk):
    article = get_object_or_404(Article, pk=pk)
    comments = article.comment_set.all()
    for comment in comments:
-      if comment.author == request.user:
+      if comment.author.pk == request.user.pk:
          comment.canEdit = True
          comment.editForm = EditCommentForm(instance = comment)
 
