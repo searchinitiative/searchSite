@@ -53,7 +53,7 @@ def articleView(request,pk):
       form = CreateCommentForm()
 
    editForm = EditArticleForm(instance = article)
-   canEdit = (request.user.pk == article.author.pk)
+   canEdit = (request.user == article.author)
 
    return  {'article':article, 'comments':comments, 'form':form, 'editForm':editForm, 'canEdit':canEdit}
 
